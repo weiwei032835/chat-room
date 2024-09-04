@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+  margin: 0;
+  min-height: calc(100vh - 100px);
+  background: linear-gradient(180deg, #c1e1ff 0%, #0085ff 100%);
+  font-family: 'Montserrat', sans-serif;
+}
+
+.container {
+  background-color: white;
+  margin: 0 auto;
+  margin-top: 100px;
+  width: 400px;
+  padding: 20px 10px;
+  border-radius: 30px;
+  position: relative;
+}
+
+.create-room-btn {
+  background-color: #4e95ff;
+  border: 0px;
+  color: white;
+  cursor: pointer;
+  border-radius: 64px;
+  padding: 10px 13px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0 auto;
+  display: block;
+  width: 200px;
+  margin: 100px auto;
+}
