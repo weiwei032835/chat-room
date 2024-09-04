@@ -31,3 +31,107 @@ body {
   width: 200px;
   margin: 100px auto;
 }
+.go-home {
+  position: absolute;
+  top: 1rem;
+  right: 4.5rem;
+  cursor: pointer;
+}
+
+.invite-button {
+  position: absolute;
+  top: 1 rem;
+  right: 1rem;
+  cursor: pointer;
+}
+
+.title-container {
+  position: relative;
+  display: inline-block;
+}
+
+.title {
+  margin-top: 0.5rem;
+  margin-left: 30px;
+  font-size: 2rem;
+}
+
+.edit-icon {
+  position: absolute;
+  top: 7px;
+  right: -20px;
+  width: 15px;
+  height: 15px;
+}
+
+.inner-container {
+  max-width: 320px;
+  margin: 0 auto;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.message {
+  margin: 10px 0px;
+  border-radius: 10px;
+  color: block;
+  border: 2px solid #333;
+}
+
+/*對方訊息*/
+.message.text {
+  background-color: #EEEFF0;
+  border-radius: 20px;
+  padding: 10px 20px;
+  width: fit-content;
+}
+
+/*自己訊息*/
+.text_self {
+  background-color: #4e95ff;
+  color: white;
+  border-radius: 20px;
+  padding: 10px 20px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: 0;
+  border: 2px solid #333;
+}
+
+/*使用者*/
+.message.user_self {
+  font-size: 16px;
+  text-align: right;
+}
+
+
+/*使用者*/
+.message.user {
+  font-size: 16px;
+  text-align: right;
+}
+
+/*輸入欄位*/
+.input-form {
+  background-color: #EEEFF0;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+/*input 輸入欄位*/
+.input-form input {
+  border: none;
+  padding: 10px;
+  border-radius: 20px;
+  width: 80%;
+}

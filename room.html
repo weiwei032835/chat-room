@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <link rel="shortcut icon" href="#" />
+    <title>聊天室</title>
+    <script type="module" src="/main.js" defer></script>
+</head>
+
+<body>
+    <!-- container 開始-->
+    <div class="container">
+        <a href="index.html" class="go-home">
+            <img src="/home.svg" alt="Home">
+        </a>
+        <img src="/public/invite.svg" alt="Invite" class="invite-button" id="invite-button">
+
+        <!-- title-container 開始-->
+        <div class="title-container">
+            <h1 class="title" id="caht-room-name">Chat Room</h1>
+            <img src="/edit.svg" alt="Edit" class="edit-icon" id="edit-icon">
+        </div>
+        <!-- title-container 結束-->
+
+        <div class="inner-container">
+            <!-- 組 -->
+            <div class="messages">
+                <div class="message user">user1</div>
+                <div class="message text">hello</div>
+                <div class="message user">user2</div>
+                <div class="message text_self">text</div>
+            </div>
+            <!-- 組 -->
+
+
+            <!-- 訊息開始 -->
+            <div class="input-form" id="input-form">
+                <input type="text" class="input-form_input" id="message_input" placeholder="Enter a message">
+                <button class="input_button" id="send_message">send</button>
+            </div>
+            <!-- 訊息結束 -->
+        </div>
+    </div>
+    <!-- container 結束-->
+
+
+
+</body>
+
+</html>
