@@ -31,6 +31,7 @@ body {
   width: 200px;
   margin: 100px auto;
 }
+
 .go-home {
   position: absolute;
   top: 1rem;
@@ -87,15 +88,16 @@ body {
 }
 
 /*對方訊息*/
-.message.text {
+.message_text {
   background-color: #EEEFF0;
   border-radius: 20px;
   padding: 10px 20px;
   width: fit-content;
+  /*自適應*/
 }
 
 /*自己訊息*/
-.text_self {
+.message_text_self {
   background-color: #4e95ff;
   color: white;
   border-radius: 20px;
@@ -107,14 +109,7 @@ body {
 }
 
 /*使用者*/
-.message.user_self {
-  font-size: 16px;
-  text-align: right;
-}
-
-
-/*使用者*/
-.message.user {
+.message_user_self {
   font-size: 16px;
   text-align: right;
 }
@@ -130,8 +125,20 @@ body {
 
 /*input 輸入欄位*/
 .input-form input {
-  border: none;
+
   padding: 10px;
   border-radius: 20px;
   width: 80%;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.input-form button {
+  background-color: #4e95ff;
+  border: none;
+  color: white;
+  border-radius: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
 }
