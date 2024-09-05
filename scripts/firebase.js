@@ -4,6 +4,7 @@ import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from
 import firebase from "firebase/compat/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore, addDoc, collection } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -21,21 +22,34 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const provider = new GoogleAuthProvider();
 
-export function login() {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            //已經登入
-            console.log("已經登入");
+export function requireAuth() {
 
-        } else {
-            //未登入
-            signInWithPopup(auth, provider).catch((error) => {
-                console.error("登入失敗：", error);
-            });
-        }
+    return new Promise((resolve, reject) => {
+        const auth = getAuth();
+
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                //已經登入
+                resolve(user);//傳出去
+                unsubscribe();
+                console.log("已經登入");
+            } else {
+                //未登入
+                signInWithPopup(auth, provider);
+            }
+        });
     })
+
 
     signInWithPopup(auth, provider);
     console.log(auth);
+}
+
+export async function createRoom() {
+    const db = getFirestore();
+    const room = await addDoc(collection(db, "room"), {
+        name: "Chat Room",
+        createdAt: new Date()
+    });
+    return room.id;
 }
