@@ -1,18 +1,21 @@
 ﻿// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from "firebase/auth";
+import firebase from "firebase/compat/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyAm9UoBBQWqspyCLrLqaODHqxbw24pXxpQ",
-    authDomain: "chat-room-d7109.firebaseapp.com",
-    projectId: "chat-room-d7109",
-    storageBucket: "chat-room-d7109.appspot.com",
-    messagingSenderId: "239719760333",
-    appId: "1:239719760333:web:ff51b98cd73e8858560484"
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
+
+//console.log(firebaseConfig);
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -27,7 +30,9 @@ export function login() {
 
         } else {
             //未登入
-            signInWithPopup(auth, provider);
+            signInWithPopup(auth, provider).catch((error) => {
+                console.error("登入失敗：", error);
+            });
         }
     })
 
