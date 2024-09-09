@@ -1,58 +1,62 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-    <link rel="shortcut icon" href="#" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>聊天室</title>
-    <script type="module" src="/main.js" defer></script>
-</head>
-
-<body>
-    <!-- container 開始-->
+    <script type="module" src="/room.js" defer></script>
+  </head>
+  <body>
     <div class="container">
-        <a href="index.html" class="go-home">
-            <img src="/home.svg" alt="Home">
-        </a>
-        <img src="/public/invite.svg" alt="Invite" class="invite-button" id="invite-button">
+      <a href="index.html" class="go-home">
+        <img src="/home.svg" alt="Home" />
+      </a>
+      <img
+        src="invite.svg"
+        alt="Invite"
+        class="invite-button"
+        id="invite-button"
+      />
 
-        <!-- title-container 開始-->
-        <div class="title-container">
-            <h1 class="title" id="caht-room-name">Chat Room</h1>
-            <img src="/edit.svg" alt="Edit" class="edit-icon" id="edit-icon">
+      <div class="title-container">
+        <h1 class="title" id="chat-room-name"></h1>
+        <img src="/edit.svg" alt="Edit" class="edit-icon" id="edit-icon" />
+      </div>
+
+      <div class="inner-container">
+        <div class="messages" id="messages">
+          <!-- <div class="message">
+            <div class="message__user--self">User1</div>
+            <div class="message__text--self">Hello</div>
+          </div>
+          <div class="message">
+            <div class="message__user">User2</div>
+            <div class="message__text">Text</div>
+          </div> -->
         </div>
-        <!-- title-container 結束-->
-
-        <div class="inner-container">
-            <div class="messages" id="messages">
-                <!-- 組 -->
-                <div class="message">
-                    <div class="message_user_self">user1</div>
-                    <div class="message_text_self">hello</div>
-                </div>
-                <!-- 組 -->
-                <!-- 組 -->
-                <div class="message">
-                    <div class="message_user">user2</div>
-                    <div class="message_text">text</div>
-                </div>
-            </div>
-            <!-- 組 -->
-
-
-            <!-- 訊息開始 -->
-            <div class="input-form" id="input-form">
-                <input type="text" class="input-form_input" id="message_input" placeholder="Enter a message">
-                <button class="input_button" id="send_message">send</button>
-            </div>
-            <!-- 訊息結束 -->
+        <div class="input-form" id="input-form">
+          <input
+            type="text"
+            class="input-form__input"
+            id="message-input"
+            placeholder="Enter a message"
+          />
+          <button class="input-form__button" id="send-message">Send</button>
         </div>
+      </div>
     </div>
-    <!-- container 結束-->
-
-
-
-</body>
-
+    <div class="modal" id="invite-modal">
+      <div class="modal-content">
+        <h2 class="modal-title">Invite</h2>
+        <input type="text" id="invite-link" readonly />
+        <button class="copy-link-btn" id="copy-link-btn">複製連結</button>
+        <img
+          src="/close_modal.svg"
+          alt="Close"
+          class="close-modal"
+          id="close-invite-modal"
+        />
+      </div>
+    </div>
+  </body>
 </html>
