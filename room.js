@@ -29,7 +29,6 @@ function appendMessage(message) {
 }
 
 
-
 // 送出訊息
 function sendMessage(roomId) {
   const messageInput = document.getElementById("message-input");
@@ -64,11 +63,55 @@ function addSendMessageListener(roomId) {
     }
   });
 }
-// 設定事件
-function setupEventListeners(roomId) {
-  addSendMessageListener(roomId);
+
+// 設置邀請連結
+function setInviteUrl() {
+  const currentUser = window.location.href
+  const inviteUrl = document.getElementById("invite-link");
+  inviteUrl.value = currentUser;
 }
 
+
+// 複製邀請連結
+function addInviteButtonListener() {
+  const inviteButton = document.getElementById("invite-button");
+  const inviteModal = document.getElementById("invite-modal");
+  setInviteUrl();
+  //打開邀請連結
+  inviteButton.addEventListener("click", () => {
+    inviteModal.classList.add("open");
+  });
+}
+
+// 複製邀請連結
+function addCopyButtonListener() {
+  const copyButton = document.getElementById("copy-link-btn");
+  copyButton.addEventListener("click", () => {
+    navigator.clipboard.writeText(window.location.href);
+    //變成已複製
+    copyButton.innerText = "已複製";
+    setTimeout(() => {
+      copyButton.innerText = "複製連結";
+    }, 2000)
+  });
+}
+
+// 關閉邀請連結視窗
+function addCloseInviteModalListener() {
+  const closeModalButton = document.getElementById("close-invite-modal");
+  const inviteModal = document.getElementById("invite-modal");
+  closeModalButton.addEventListener("click", () => {
+    inviteModal.classList.remove("open");
+  });
+}
+
+// 設定 複製 跳出事件 
+function setupEventListeners(roomId) {
+  addSendMessageListener(roomId);
+  addInviteButtonListener();
+  addCloseInviteModalListener();
+  addCopyButtonListener()
+}
 
 const messageIds = new Set();
 // 訊息更新
