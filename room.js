@@ -1,4 +1,10 @@
-﻿import { requireAuth, sendMessageToRoom, subscribeToRoom } from "./scripts/firebase";
+﻿import { doc } from "firebase/firestore";
+import {
+  requireAuth,
+  sendMessageToRoom,
+  subscribeToRoom,
+  getRoom
+} from "./scripts/firebase";
 import "./style.css";
 
 // 顯示訊息
@@ -96,6 +102,13 @@ function addCopyButtonListener() {
   });
 }
 
+// 更新房間名稱
+async function loadRoomName(roomId) {
+  const title = document.getElementById("chat-room-name");
+  const room = await getRoom(roomId);
+  title.textContent = room.name;
+}
+
 // 關閉邀請連結視窗
 function addCloseInviteModalListener() {
   const closeModalButton = document.getElementById("close-invite-modal");
@@ -129,6 +142,8 @@ function messageUpdateHandler(messages) {
 requireAuth().then((user) => {
   // 從 URL 查詢參數中獲取房間 ID
   const roomId = new URLSearchParams(window.location.search).get("roomId");
+  // 更新房間名
+  loadRoomName(roomId)
   // 設置與房間相關的事件監聽器
   setupEventListeners(roomId);
   // 訂閱房間的訊息更新

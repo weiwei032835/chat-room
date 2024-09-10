@@ -1,24 +1,31 @@
 ﻿// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {
-  GoogleAuthProvider,
+  GoogleAuthProvider,//第三方驗證
   getAuth,
   onAuthStateChanged,
-  signInWithPopup
+  signInWithPopup,
 } from "firebase/auth";
-import { getFirestore, addDoc, collection, onSnapshot } from "firebase/firestore";
+import {
+  getFirestore,
+  addDoc,
+  collection,
+  onSnapshot,
+  doc,
+  getDoc
+} from "firebase/firestore";
 
-// TODO: Add SDKs for Firebase products that you want to use
+// Firebase 服務網頁 SDK
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
+// Firebase 配置
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY, //金鑰
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN, //認證域名
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID, //專案ID
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,//儲存
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,//發送ID
+  appId: import.meta.env.VITE_FIREBASE_APP_ID //應用程式ID
 };
 
 const COLLECTIONS = {
@@ -26,10 +33,11 @@ const COLLECTIONS = {
   MESSAGE: "message"
 };
 
-// Initialize Firebase
+// 初始化 Firebase
 const app = initializeApp(firebaseConfig);
 const provider = new GoogleAuthProvider();
 
+// Google第三方認證
 export function requireAuth() {
   return new Promise((resolve, reject) => {
     const auth = getAuth();
@@ -44,7 +52,9 @@ export function requireAuth() {
   });
 }
 
+// 建立房間
 export async function createRoom() {
+  // 獲取資料
   const db = getFirestore();
   const room = await addDoc(collection(db, COLLECTIONS.ROOM), {
     name: "Chat Room",
@@ -63,6 +73,7 @@ export async function sendMessageToRoom(roomId, content) {
     roomId, // 特定房間的 ID
     COLLECTIONS.MESSAGE // 訊息集合的名稱
   );
+  // 取得使用者
   const auth = getAuth();
   // 向 Firestore 中的訊息集合新增一個新訊息文件
   const message = await addDoc(messageRef, {
@@ -99,4 +110,11 @@ export async function subscribeToRoom(fn, roomId) {
   });
 
   return unsubscribe;
+}
+// 取得房間
+export function getRoom(roomId) {
+  const db = getFirestore();
+  // 取得房間文件
+  const roomRef = doc(db, COLLECTIONS.ROOM, roomId);
+  return getDoc(roomRef).then(doc => doc.data());
 }
