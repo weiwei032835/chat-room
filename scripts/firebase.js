@@ -6,13 +6,15 @@ import {
   onAuthStateChanged,
   signInWithPopup,
 } from "firebase/auth";
+
 import {
   getFirestore,
   addDoc,
   collection,
   onSnapshot,
   doc,
-  getDoc
+  getDoc,
+  setDoc
 } from "firebase/firestore";
 
 // Firebase 服務網頁 SDK
@@ -111,10 +113,18 @@ export async function subscribeToRoom(fn, roomId) {
 
   return unsubscribe;
 }
+
 // 取得房間
 export function getRoom(roomId) {
   const db = getFirestore();
   // 取得房間文件
   const roomRef = doc(db, COLLECTIONS.ROOM, roomId);
   return getDoc(roomRef).then(doc => doc.data());
+}
+
+// 修改房間名稱
+export async function updateRoomName(name, roomId) {
+  const db = getFirestore();//取得資料庫
+  const roomRef = doc(db, COLLECTIONS.ROOM, roomId);
+  await setDoc(roomRef, { name: name }, { merge: true });
 }

@@ -1,9 +1,10 @@
-﻿import { doc } from "firebase/firestore";
+﻿
 import {
   requireAuth,
   sendMessageToRoom,
   subscribeToRoom,
-  getRoom
+  getRoom,
+  updateRoomName
 } from "./scripts/firebase";
 import "./style.css";
 
@@ -102,6 +103,49 @@ function addCopyButtonListener() {
   });
 }
 
+// input 編輯
+function createTitleEditInput(value) {
+  const input = document.createElement("input");
+  input.type = "text";
+  input.value = value;
+  input.classList.add("editable-input");
+  return input;
+}
+
+// 取得房間名稱  
+function addEditIconListener(roomId) {
+  const editIcon = document.getElementById("edit-icon");
+  editIcon.addEventListener("click", () => {
+    const title = document.getElementById("chat-room-name");
+    const input = createTitleEditInput(title.textContent);// 現在標題
+    title.parentNode.replaceChild(input, title); //replaceChild()替換節點
+    input.focus();
+    editIcon.style.display = "none";
+
+    // 儲存標題
+    function saveTitle() {
+      updateRoomName(input.value, roomId)
+        .then(() => {
+          title.textContent = input.value;
+        })
+        .finally(() => {
+          input.parentNode.replaceChild(title, input);
+          editIcon.style.display = "block";
+        })
+    }
+
+    input.addEventListener("blur", saveTitle);
+    input.addEventListener("keydown", e => {
+      if (e.key === "Enter") {
+        input.blur();
+      }
+    })
+  });
+}
+
+
+
+
 // 更新房間名稱
 async function loadRoomName(roomId) {
   const title = document.getElementById("chat-room-name");
@@ -123,7 +167,8 @@ function setupEventListeners(roomId) {
   addSendMessageListener(roomId);
   addInviteButtonListener();
   addCloseInviteModalListener();
-  addCopyButtonListener()
+  addCopyButtonListener();
+  addEditIconListener(roomId);
 }
 
 const messageIds = new Set();

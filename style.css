@@ -65,7 +65,7 @@ body {
   width: 15px;
   height: 15px;
 }
-
+/*編輯*/
 .editable-input {
   font-family: "Montserrat", sans-serif;
   font-size: 2rem;
@@ -74,6 +74,7 @@ body {
   background-color: transparent;
   display: inline;
   width: 270px;
+  border:2px solid blue; 
 }
 
 .inner-container {
